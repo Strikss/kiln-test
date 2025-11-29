@@ -2,7 +2,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react';
 
 const buttonVariants = cva(
-  'w-fit text-center font-medium shadow-sm transition-all duration-100 hover:opacity-90 active:scale-95',
+  'w-fit text-center disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-sm transition-all duration-100 hover:opacity-90 active:scale-95',
   {
     variants: {
       variant: {

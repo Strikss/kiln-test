@@ -2,12 +2,19 @@ import type { NFT } from '@/api/queries/sharedTypes';
 import { UiButton } from '@/components/common/UiButton';
 import { UiText } from '@/components/common/UiText';
 import { ICONS } from '@/constants/icons';
+import { useClaimNft } from '@/hooks/useClaimNft';
+import type { Address } from 'viem';
 
 type NftAssetInfoProps = {
   nft: NFT;
 };
 
 export function NftAssetInfo({ nft }: NftAssetInfoProps) {
+  const { claim, isPending, isConfirmed, isConnected } = useClaimNft({
+    contractAddress: nft.tokenAddress as Address,
+    tokenId: nft.id,
+  });
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
@@ -46,9 +53,16 @@ export function NftAssetInfo({ nft }: NftAssetInfoProps) {
           </UiText>
         </div>
       </div>
-      <UiButton size="lg" fullWidth>
-        Claim Now
-      </UiButton>
+      <div>
+        <UiButton size="lg" fullWidth onClick={claim} disabled={isPending || isConfirmed}>
+          {isPending ? 'Claiming...' : isConfirmed ? 'Claimed!' : 'Claim Now'}
+        </UiButton>
+        {!isConnected && (
+          <UiText variant="caption" color="gray" className="text-center mt-2">
+            Connect your wallet to claim
+          </UiText>
+        )}
+      </div>
     </div>
   );
 }
