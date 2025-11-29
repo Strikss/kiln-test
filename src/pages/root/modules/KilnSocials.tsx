@@ -37,7 +37,7 @@ export function KilnSocials() {
       </UiText>
       <div className="flex gap-4">
         {SOCIAL_LINKS.map(link => (
-          <UiLink href={link.href} key={link.label} className="flex items-center gap-2 font-medium">
+          <UiLink href={link.href} key={link.href} className="flex items-center gap-2 font-medium">
             <link.icon className="size-5" />
             <span>{link.label}</span>
           </UiLink>
