@@ -1,0 +1,174 @@
+# Cursor Rules for React TypeScript Project
+
+## Function Declarations
+
+-   **ALWAYS use function declarations** for regular functions, components, and exported functions
+-   **ONLY use arrow functions** for callbacks (event handlers, map/filter callbacks, useEffect callbacks, etc.)
+
+### Examples:
+
+```typescript
+// ✅ CORRECT: Function declaration for components
+function App() {
+	return <div>Hello</div>;
+}
+
+// ✅ CORRECT: Function declaration for regular functions
+function calculateTotal(items: Item[]) {
+	return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+// ✅ CORRECT: Arrow function in array methods
+const doubled = numbers.map((n) => n * 2);
+
+// ❌ WRONG: Arrow function for component
+const App = () => {
+	return <div>Hello</div>;
+};
+
+// ❌ WRONG: Function declaration for callback
+function handleClick() {
+	console.log("clicked");
+}
+```
+
+## Imports
+
+-   **ALWAYS use `@/` prefix** for imports from the `src` directory
+-   Use relative imports (`./` or `../`) only for files in the same directory or immediate parent
+-   For external packages, use standard npm package names
+
+### Examples:
+
+```typescript
+// ✅ CORRECT: Use @ for src imports
+import { App } from "@/App";
+import { Button } from "@/components/Button";
+import { useAuth } from "@/hooks/useAuth";
+import logo from "@/assets/logo.svg";
+
+// ✅ CORRECT: Relative imports for same directory
+import { helper } from "./helper";
+import { types } from "../types";
+
+// ✅ CORRECT: Standard imports for node_modules
+import { useState } from "react";
+import { defineConfig } from "vite";
+
+// ❌ WRONG: Relative path for src imports
+import App from "../App";
+import { Button } from "../../components/Button";
+```
+
+## General Project Rules
+
+### TypeScript
+
+-   Use strict TypeScript settings (already configured)
+-   Always type function parameters and return types explicitly
+-   Use interfaces for object shapes, types for unions/intersections
+-   Prefer `type` for simple type aliases, `interface` for extensible shapes
+
+### React
+
+-   Use functional components only (no class components)
+-   Use React hooks (useState, useEffect, etc.) appropriately
+-   Always use named exports for components: `export function ComponentName() {}`
+-   Never use default exports for components
+-   Props should be typed with interfaces or types
+
+### Code Style
+
+-   Use 2 spaces for indentation (tabs converted to spaces)
+-   Use semicolons at the end of statements
+-   Use single quotes for strings (or double quotes, but be consistent)
+-   Use trailing commas in objects and arrays
+-   Maximum line length: 100 characters (soft limit)
+
+### File Organization
+
+-   Components go in `src/components/`
+-   Hooks go in `src/hooks/`
+-   Utilities go in `src/utils/`
+-   Types/interfaces go in `src/types/` or co-located with components
+-   Assets go in `src/assets/`
+
+### SVG Icons
+
+-   **ALL SVG files** must be added to `src/constants/icons.ts`
+-   **ALWAYS use lazy imports** for SVG icons using `React.lazy()`
+-   Export all icons from the `ICONS` object
+-   Use PascalCase naming for icon keys (e.g., `LogoIcon`, `CloseIcon`)
+-   Import path should use `@/assets/` prefix
+
+### Examples:
+
+```typescript
+// ✅ CORRECT: Lazy import SVG in icons.ts
+import { lazy } from "react";
+export const ICONS = {
+	LogoIcon: lazy(() => import("@/assets/logo.svg")),
+	CloseIcon: lazy(() => import("@/assets/close.svg")),
+	ArrowIcon: lazy(() => import("@/assets/arrow.svg")),
+};
+
+// ✅ CORRECT: Use icon from ICONS object
+import { ICONS } from "@/constants/icons";
+const Logo = ICONS.LogoIcon;
+
+// ❌ WRONG: Direct import of SVG
+import logo from "@/assets/logo.svg";
+
+// ❌ WRONG: Non-lazy import in icons.ts
+export const ICONS = {
+	LogoIcon: require("@/assets/logo.svg"),
+};
+```
+
+### Naming Conventions
+
+-   Components: PascalCase (e.g., `UserProfile.tsx`)
+-   Functions: camelCase (e.g., `calculateTotal`)
+-   Constants: UPPER_SNAKE_CASE (e.g., `API_BASE_URL`)
+-   Types/Interfaces: PascalCase (e.g., `UserData`, `ApiResponse`)
+-   Files: Match the export (component file = component name)
+
+### React Query & Wagmi
+
+-   Use React Query hooks for data fetching
+-   Use Wagmi hooks for blockchain interactions
+-   Always handle loading and error states
+-   Use proper query keys for cache management
+
+### Tailwind CSS
+
+-   Use Tailwind utility classes for styling
+-   Avoid inline styles unless absolutely necessary
+-   Use `className` prop, not `class`
+-   Group related classes logically
+
+### Performance
+
+-   Use React.memo for expensive components
+-   Use useMemo and useCallback appropriately (don't overuse)
+-   Lazy load routes with React.lazy()
+-   Optimize images and assets
+
+### Error Handling
+
+-   Always handle errors in async operations
+-   Use try-catch blocks for error handling
+-   Provide user-friendly error messages
+-   Log errors appropriately for debugging
+
+### Testing (when applicable)
+
+-   Write tests for utility functions
+-   Test component behavior, not implementation
+-   Use descriptive test names
+
+### Git
+
+-   Write clear, descriptive commit messages
+-   Keep commits focused and atomic
+-   Don't commit build artifacts or node_modules

@@ -1,2 +1,19 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+button:not([disabled]) {
+  cursor: pointer;
+}
+
+@theme {
+  /* Colors */
+  --color-gray-1: #fafafa;
+  --color-gray-2: #6a7282;
+
+  --color-border-main: #e5e5e5;
+
+  --color-black-main: #0a0a0a;
+  --color-black-1: #171717;
+
+  /* Shadows */
+  --shadow-sm: 0px 1px 2px 0px #00000017;
+}
