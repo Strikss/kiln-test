@@ -14,12 +14,8 @@ export function MoreSection() {
       <ul className="flex gap-4 overflow-x-auto">
         {!isLoading && data
           ? data.map(nft => (
-              <li>
-                <button
-                  className="flex flex-col gap-2"
-                  key={nft.id}
-                  onClick={() => pushPath(nft.id)}
-                >
+              <li key={nft.id}>
+                <button className="flex flex-col gap-2" onClick={() => pushPath(nft.id)}>
                   <UiImage src={nft.metadata.image} alt={nft.metadata.name} />
                   <div className="text-left">
                     <UiText as="h4" variant="body-bold">
