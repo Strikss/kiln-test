@@ -1,5 +1,5 @@
-import { UiButton } from '../common/UiButton';
-import { ICONS } from '../../constants/icons';
+import { UiButton } from '@/components/common/UiButton';
+import { ICONS } from '@/constants/icons';
 
 export function Header() {
   return (
