@@ -1,5 +1,6 @@
 import { Footer } from '@/components/modules/footer';
 import { Header } from '@/components/modules/header';
+import { MoreSection } from '@/pages/root/modules/MoreSection';
 import { NftDetailSection } from '@/pages/root/modules/NftDetailSection';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <Header />
       <main className="py-20 px-24">
         <NftDetailSection />
+        <MoreSection />
       </main>
       <Footer />
     </div>

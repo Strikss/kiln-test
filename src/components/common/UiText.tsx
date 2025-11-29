@@ -5,6 +5,7 @@ const variants = cva('', {
   variants: {
     variant: {
       title: 'font-semibold text-2xl',
+      'title-s': 'font-semibold text-lg',
       body: 'text-base',
       'body-bold': 'font-semibold text-base',
       callout: 'text-sm',
